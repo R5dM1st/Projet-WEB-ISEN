@@ -11,7 +11,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 32px 64px 0 64px;
-  background: #E5E1EE; /* Couleur lavande pour la navbar */
+  background: #ffffff; /* Couleur lavande pour la navbar */
 }
 
 .logo {
@@ -40,17 +40,17 @@ body {
 .nav-links li {
   font-size: 20px;
   font-weight: 400;
-  color: #90BEDE; /* Bleu moyen pour les liens inactifs */
+  color: #da76b5; /* Bleu moyen pour les liens inactifs */
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #90BEDE;
+  color: #568ab4;
   transition: color 0.2s;
 }
 
 .nav-links a:hover {
-  color: #68EDC6; /* Vert menthe pour hover */
+  color: #64c095; /* Vert menthe pour hover */
 }
 
 .icon-search {
