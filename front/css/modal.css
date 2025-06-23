@@ -1,0 +1,118 @@
+/* -------- MODAL -------- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2em;
+  width: 360px;
+  max-width: 90vw;
+  box-shadow: 0 10px 30px rgba(144, 190, 222, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.25s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Titre de la modale */
+.modal-content h2 {
+  color: #2e3a59;
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Bouton de fermeture */
+.modal .close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-size: 1.4em;
+  color: #90BEDE;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+
+.modal .close:hover {
+  color: #68EDC6;
+}
+
+/* Formulaire */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-content input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1.5px solid #cfe9f5;
+  background-color: #f9feff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.modal-content input:focus {
+  border-color: #68EDC6;
+  box-shadow: 0 0 0 3px rgba(104, 237, 198, 0.2);
+}
+
+/* Bouton principal */
+.modal-content button[type="submit"] {
+  margin-top: 10px;
+  background-color: #68EDC6;
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: #90BEDE;
+  box-shadow: 0 6px 16px rgba(104, 237, 198, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .modal-content {
+    width: 90vw;
+    padding: 1.5em;
+  }
+}

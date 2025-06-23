@@ -6,11 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="front/assets/img/logo.ico">
   <link href="front/css/style.css" rel="stylesheet">
+  <link href="front/css/modal.css" rel="stylesheet">
 </head>
 <body>
+
   <nav class="navbar">
     <div class="logo">
       <img src="front/assets/img/logo.png" alt="Logo">
+      <span class="site-name">ISEN PROJECT</span>
     </div>
     <ul class="nav-links">
       <li><a href="#">Home</a></li>
@@ -24,6 +27,7 @@
       <a href="#" class="sign">Login</a>
     </div>
   </nav>
+
   <main class="main-content">
     <h1 class="title">PROJET WEB ISEN</h1>
     <p class="subtitle">
@@ -33,59 +37,33 @@
     <a href="#" class="purchase-btn">Purchase Now for $248</a>
     <a href="#" class="learn-more">Learn More</a>
   </main>
+
+  <div class="modal" id="modal-register">
+    <div class="modal-content">
+      <span class="close" data-modal="modal-register">&times;</span>
+      <h2>Register</h2>
+      <form id="form-register">
+        <input type="text" placeholder="Username" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-login">
+    <div class="modal-content">
+      <span class="close" data-modal="modal-login">&times;</span>
+      <h2>Login</h2>
+      <form id="form-login">
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+<script src="front/js/modal.js"></script>
+
 </body>
 </html>
-<div class="modal" id="modal-register">
-  <div class="modal-content">
-    <span class="close" data-modal="modal-register">&times;</span>
-    <h2>Register</h2>
-    <form id="form-register">
-      <input type="text" placeholder="Username" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Register</button>
-    </form>
-  </div>
-</div>
-
-<!-- Modal: Login -->
-<div class="modal" id="modal-login">
-  <div class="modal-content">
-    <span class="close" data-modal="modal-login">&times;</span>
-    <h2>Login</h2>
-    <form id="form-login">
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-</div>
-<script>
-  // Ouvre une modale
-  document.querySelector('.reg').addEventListener('click', function (e) {
-    e.preventDefault();
-    document.getElementById('modal-register').style.display = 'flex';
-  });
-
-  document.querySelector('.sign').addEventListener('click', function (e) {
-    e.preventDefault();
-    document.getElementById('modal-login').style.display = 'flex';
-  });
-
-  // Ferme une modale
-  document.querySelectorAll('.close').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const modalId = this.getAttribute('data-modal');
-      document.getElementById(modalId).style.display = 'none';
-    });
-  });
-
-  // Ferme au clic extérieur
-  window.addEventListener('click', function (e) {
-    document.querySelectorAll('.modal').forEach(function (modal) {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
-  });
-</script>

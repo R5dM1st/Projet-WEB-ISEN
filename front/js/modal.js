@@ -1,28 +1,28 @@
-// Open modals
-document.getElementById('openRegister').onclick = function(e) {
-  e.preventDefault();
-  document.getElementById('registerModal').style.display = 'block';
-};
+ 
+    // Ouvre une modale
+    document.querySelector('.reg').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('modal-register').style.display = 'flex';
+    });
 
-document.getElementById('openLogin').onclick = function(e) {
-  e.preventDefault();
-  document.getElementById('loginModal').style.display = 'block';
-};
+    document.querySelector('.sign').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('modal-login').style.display = 'flex';
+    });
 
-// Close modals
-document.getElementById('closeRegister').onclick = function() {
-  document.getElementById('registerModal').style.display = 'none';
-};
-document.getElementById('closeLogin').onclick = function() {
-  document.getElementById('loginModal').style.display = 'none';
-};
+    // Ferme une modale
+    document.querySelectorAll('.close').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const modalId = this.getAttribute('data-modal');
+        document.getElementById(modalId).style.display = 'none';
+      });
+    });
 
-// Close modal on click outside
-window.onclick = function(event) {
-  if (event.target === document.getElementById('registerModal')) {
-    document.getElementById('registerModal').style.display = 'none';
-  }
-  if (event.target === document.getElementById('loginModal')) {
-    document.getElementById('loginModal').style.display = 'none';
-  }
-};
+    // Ferme au clic à l'extérieur
+    window.addEventListener('click', function (e) {
+      document.querySelectorAll('.modal').forEach(function (modal) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
