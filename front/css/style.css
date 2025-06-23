@@ -1,53 +1,32 @@
-:root {
-  --lavender: #E5E1EE;
-  --ice-blue: #DFFDFF;
-  --blue-medium: #90BEDE;
-  --mint: #68EDC6;
-  --cyan-light: #90F3FF;
-  --text-dark: #25253c;
-  --text-main: #28506f;
-}
-
 body {
   margin: 0;
   padding: 0;
-  background: var(--ice-blue);
+  background: #DFFDFF; /* Couleur principale de fond */
   font-family: 'Inter', Arial, sans-serif;
-  color: var(--text-dark);
-  min-height: 100vh;
+  color: #25253c;
 }
 
-/* ========== NAVBAR ========== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 48px 0 48px;
-  background: var(--lavender);
-  min-height: 80px;
-  box-shadow: 0 2px 10px rgba(144,190,222,0.05);
+  padding: 32px 64px 0 64px;
+  background: #E5E1EE; /* Couleur lavande pour la navbar */
 }
 
 .logo {
   display: flex;
   align-items: center;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .logo img {
-  height: 48px;
-  width: 48px;
-  border-radius: 50%;
-  margin-right: 14px;
-  background: var(--blue-medium);
-  object-fit: cover;
-  box-shadow: 0 2px 10px rgba(104,237,198,0.07);
-}
-
-.site-name {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--text-main);
-  letter-spacing: 2px;
+  height: 56px;   /* Taille du logo ajustable */
+  width: auto;
+  margin-right: 12px;
+  display: block;
 }
 
 .nav-links {
@@ -59,140 +38,163 @@ body {
 }
 
 .nav-links li {
-  font-size: 1.15rem;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 400;
+  color: #90BEDE; /* Bleu moyen pour les liens inactifs */
 }
 
 .nav-links a {
   text-decoration: none;
-  color: var(--blue-medium);
-  padding: 4px 8px;
-  border-radius: 5px;
-  transition: color 0.2s, background 0.2s;
+  color: #90BEDE;
+  transition: color 0.2s;
 }
 
 .nav-links a:hover {
-  color: var(--mint);
-  background: var(--cyan-light);
+  color: #68EDC6; /* Vert menthe pour hover */
 }
 
 .icon-search {
-  font-size: 1.2rem;
+  font-size: 20px;
   vertical-align: middle;
 }
 
 .nav-auth {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .signin {
-  color: var(--blue-medium);
-  font-size: 1.08rem;
+  color: #90BEDE;
+  font-size: 20px;
+  margin-right: 12px;
   text-decoration: none;
-  padding: 4px 10px;
-  border-radius: 5px;
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.2s;
 }
 
 .signin:hover {
-  color: var(--mint);
-  background: var(--cyan-light);
+  color: #68EDC6;
 }
 
 .sign-btn {
-  background: var(--mint);
-  color: #fff;
-  font-size: 1.08rem;
-  padding: 6px 22px;
+  background: #68EDC6;     /* Vert menthe pour le bouton */
+  color: #ffffff;
+  font-size: 20px;
+  padding: 6px 26px;
   border-radius: 24px;
   text-decoration: none;
-  font-weight: 600;
-  border: none;
+  font-weight: 500;
   transition: background 0.2s, color 0.2s;
-  box-shadow: 0 1px 5px rgba(144,190,222,0.07);
+  border: none;
 }
 
 .sign-btn:hover {
-  background: var(--blue-medium);
-  color: var(--text-dark);
+  background: #90F3FF;     /* Bleu cyan clair pour hover */
+  color: #25253c;
 }
 
-/* ========== MAIN SECTION ========== */
 .main-content {
   text-align: center;
-  margin-top: 90px;
-  padding: 1.5rem 0;
+  margin-top: 80px;
 }
 
 .title {
-  font-size: 4.3rem;
-  font-weight: 800;
+  font-size: 72px;
+  font-weight: 700;
   margin-bottom: 24px;
   letter-spacing: 2px;
-  color: var(--blue-medium);
-  text-shadow: 0 2px 12px rgba(144,190,222,0.09);
+  color: #90BEDE; /* Bleu moyen pour le titre */
 }
 
 .subtitle {
-  font-size: 1.35rem;
-  color: var(--text-dark);
-  max-width: 630px;
-  margin: 0 auto 38px auto;
+  font-size: 26px;
+  color: #25253c;
+  max-width: 620px;
+  margin: 0 auto 36px auto;
   font-weight: 400;
-  line-height: 1.5;
 }
 
 .purchase-btn {
   display: inline-block;
-  background: var(--cyan-light);
-  color: var(--text-main);
-  padding: 18px 44px;
+  background: #90F3FF;   /* Bleu cyan pour le bouton principal */
+  color: #25253c;
+  padding: 18px 50px;
   border-radius: 34px;
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 18px;
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 16px;
   text-decoration: none;
+  transition: background 0.2s, color 0.2s;
   border: none;
-  box-shadow: 0 2px 10px rgba(104,237,198,0.09);
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 .purchase-btn:hover {
-  background: var(--mint);
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(104,237,198,0.17);
+  background: #68EDC6;
+  color: #ffffff;
 }
 
 .learn-more {
   display: block;
-  color: var(--blue-medium);
-  font-size: 1.1rem;
+  color: #90BEDE; /* Bleu moyen */
+  font-size: 20px;
   text-decoration: none;
-  margin-top: 12px;
+  margin-top: 10px;
   transition: color 0.2s;
 }
 
 .learn-more:hover {
-  color: var(--mint);
+  color: #68EDC6;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 16px 0 16px;
-  }
-  .nav-links, .nav-auth {
-    margin-top: 8px;
-  }
-  .main-content {
-    margin-top: 40px;
-    padding: 1rem;
-  }
-  .title {
-    font-size: 2.4rem;
-  }
+/* Styles pour la modale */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenu de la modale */
+.modal-content {
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 8px;
+  width: 300px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+/* Bouton de fermeture */
+.modal .close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+/* Formulaires */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-content input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-content button {
+  padding: 10px;
+  background-color: #0074d9;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

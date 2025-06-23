@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <title>PROJET WEB ISEN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="front/assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="front/assets/img/logo.ico">
   <link href="front/css/style.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar">
     <div class="logo">
-      <img src="front/assets/img/logo.ico" alt="Logo">
-      <span class="site-name">ISEN PROJECT</span>
+      <img src="front/assets/img/logo.png" alt="Logo">
     </div>
     <ul class="nav-links">
       <li><a href="#">Home</a></li>
@@ -21,8 +20,8 @@
       <li><a href="#"><span class="icon-search">&#128269;</span></a></li>
     </ul>
     <div class="nav-auth">
-      <a href="#" class="signin">Sign In</a>
-      <a href="#" class="sign-btn">Sign In</a>
+      <a href="#" class="reg">Register</a>
+      <a href="#" class="sign">Login</a>
     </div>
   </nav>
   <main class="main-content">
@@ -36,3 +35,57 @@
   </main>
 </body>
 </html>
+<div class="modal" id="modal-register">
+  <div class="modal-content">
+    <span class="close" data-modal="modal-register">&times;</span>
+    <h2>Register</h2>
+    <form id="form-register">
+      <input type="text" placeholder="Username" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Login -->
+<div class="modal" id="modal-login">
+  <div class="modal-content">
+    <span class="close" data-modal="modal-login">&times;</span>
+    <h2>Login</h2>
+    <form id="form-login">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+<script>
+  // Ouvre une modale
+  document.querySelector('.reg').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('modal-register').style.display = 'flex';
+  });
+
+  document.querySelector('.sign').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('modal-login').style.display = 'flex';
+  });
+
+  // Ferme une modale
+  document.querySelectorAll('.close').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const modalId = this.getAttribute('data-modal');
+      document.getElementById(modalId).style.display = 'none';
+    });
+  });
+
+  // Ferme au clic extérieur
+  window.addEventListener('click', function (e) {
+    document.querySelectorAll('.modal').forEach(function (modal) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  });
+</script>
