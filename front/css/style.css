@@ -11,7 +11,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 32px 64px 0 64px;
-  background: #ffffff; /* Couleur lavande pour la navbar */
+  background: #ffffff; /* Blanc pour la navbar */
 }
 
 .logo {
@@ -23,7 +23,7 @@ body {
 }
 
 .logo img {
-  height: 56px;   /* Taille du logo ajustable */
+  height: 50px;   /* Taille du logo ajustable */
   width: auto;
   margin-right: 12px;
   display: block;
@@ -31,7 +31,7 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 36px;
+  gap: 70px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -50,7 +50,7 @@ body {
 }
 
 .nav-links a:hover {
-  color: #64c095; /* Vert menthe pour hover */
+  color: #68EDC6; /* Vert menthe pour hover */
 }
 
 .icon-search {
@@ -90,7 +90,7 @@ body {
 
 .sign-btn:hover {
   background: #90F3FF;     /* Bleu cyan clair pour hover */
-  color: #25253c;
+  color: #3c2625;
 }
 
 .main-content {
@@ -98,19 +98,19 @@ body {
   margin-top: 80px;
 }
 
-.title {
+.title { /*projetwebisen*/
   font-size: 72px;
   font-weight: 700;
-  margin-bottom: 24px;
+  margin-bottom: 50px;
   letter-spacing: 2px;
-  color: #90BEDE; /* Bleu moyen pour le titre */
+  color: #38415a; /* Bleu moyen pour le titre */
 }
 
-.subtitle {
+.subtitle {/*sous 'projetwebisen'*/
   font-size: 26px;
-  color: #25253c;
+  color: #000000;
   max-width: 620px;
-  margin: 0 auto 36px auto;
+  margin: 0 auto 25px auto;
   font-weight: 400;
 }
 
@@ -132,20 +132,6 @@ body {
   background: #68EDC6;
   color: #ffffff;
 }
-
-.learn-more {
-  display: block;
-  color: #90BEDE; /* Bleu moyen */
-  font-size: 20px;
-  text-decoration: none;
-  margin-top: 10px;
-  transition: color 0.2s;
-}
-
-.learn-more:hover {
-  color: #68EDC6;
-}
-
 
 /* Section d'authentification dans la navbar */
 .nav-auth {
@@ -180,7 +166,7 @@ body {
   font-size: 18px;
   font-weight: 500;
   padding: 8px 20px;
-  border: none;
+  border: 2px solid #68EDC6;
   border-radius: 24px;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -189,4 +175,5 @@ body {
 .nav-auth .sign:hover {
   background-color: #90F3FF;
   color: #25253c;
+  border-color: #90F3FF;
 }
