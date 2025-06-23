@@ -21,8 +21,8 @@ CREATE TABLE Bateau (
 
 -- Table Position
 CREATE TABLE Position (
-    id SERIAL PRIMARY KEY,  -- Correction ici
-    Date_Heure TIMESTAMP,   -- Correction du type
+    id SERIAL PRIMARY KEY,
+    Date_Heure TIMESTAMP,
     Latitude FLOAT,
     Longitude FLOAT,
     Vitesse FLOAT,
