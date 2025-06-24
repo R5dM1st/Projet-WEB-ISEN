@@ -12,12 +12,13 @@ foreach ($required as $field) {
         exit;
     }
 }
+
 try {
     $pdo = db_connect();
 
     $stmt = $pdo->prepare("
         INSERT INTO Position (
-            Date_Heure, Latitude, longitude,statut,
+            Date_Heure, Latitude, Longitude, Draft, Status,
             Vitesse, CAP, Heading, MMSI
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
