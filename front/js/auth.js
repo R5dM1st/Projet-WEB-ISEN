@@ -121,11 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(data)
         });
-
+        console.log(JSON.stringify(data));
         let result;
         try {
           result = await response.json();
+        
         } catch (jsonError) {
+          console.log('Erreur JSON:', jsonError);
           showMessage('registerResult', 'Erreur de réponse du serveur.', false);
           return;
         }
