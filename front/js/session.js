@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
       logoutBtn.onclick = async function() {
         await fetch('back/api/logout.php', { method: 'POST', credentials: 'include' });
         checkSession();
+        // redirection vers la page d'accueil après déconnexion
+        window.location.href = 'index.html';
       }
     }
   }
