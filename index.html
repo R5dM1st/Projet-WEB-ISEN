@@ -13,57 +13,56 @@
   <nav class="navbar">
     <div class="logo">
       <img src="front/assets/img/logo.png" alt="Logo">
-      <span class="site-name">By Group 3</span>
     </div>
-    <ul class="nav-links">
-      <li><a href="ajout.html">Ajouter un navire à la BDD</a>
-      <a href="#"><span class="icon-search">&#10133;</span></a></li>
-      <li><a href="visualisation.html">Visualisation des navires</a>
-      <a href="#"><span class="icon-search">&#128269;</span></a></li>
-    </ul>
+<ul class="nav-links nav-protected">
+  <li><a href="#" id="nav-ajout">Ajouter un navire à la BDD</a>
+  <a href="#"><span class="icon-search">&#10133;</span></a></li>
+</ul>
+<ul class="nav-links nav-public">
+  <li><a href="#" id="nav-visualisation">Visualisation des navires</a>
+  <a href="#"><span class="icon-search">&#128269;</span></a></li>
+</ul>
+
     <div class="nav-auth">
       <a href="#" class="reg">Register</a>
       <a href="#" class="sign">Login</a>
     </div>
   </nav>
+  <div id="accueil"></div>
+  
 
-  <main class="main-content">
-    <h1 class="title">PROJET WEB ISEN</h1>
-    <p class="subtitle">
-      Affichez un navire avec son cluster d'appartenance !</p>
-    <a href="prediction_cluster.html" class="purchase-btn">Prediction Cluster</a><br><br><br><br>
-    <p class="subtitle">
-      Prédisez le type et la trajectoire d'un navire !</p>
-    <a href="prediction_type.html" class="purchase-btn">Prediction Type</a>
-    
-  </main>
-
-  <div class="modal" id="modal-register">
-    <div class="modal-content">
-      <span class="close" data-modal="modal-register">&times;</span>
-      <h2>Register</h2>
-      <form id="form-register">
-        <input type="text" placeholder="Username" required>
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Password" required>
-        <button type="submit">Register</button>
-      </form>
-    </div>
+<!-- Register Modal -->
+<div class="modal" id="modal-register">
+  <div class="modal-content">
+    <span class="close" data-modal="modal-register">&times;</span>
+    <h2>Register</h2>
+    <form id="form-register">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="mot_de_passe" placeholder="Password" required>
+      <button type="submit">Register</button>
+    </form>
+    <div id="registerResult"></div>
   </div>
+</div>
 
-  <div class="modal" id="modal-login">
-    <div class="modal-content">
-      <span class="close" data-modal="modal-login">&times;</span>
-      <h2>Login</h2>
-      <form id="form-login">
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-      </form>
-    </div>
+<!-- Login Modal -->
+<div class="modal" id="modal-login">
+  <div class="modal-content">
+    <span class="close" data-modal="modal-login">&times;</span>
+    <h2>Login</h2>
+    <form id="form-login">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="mot_de_passe" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <div id="loginResult"></div>
   </div>
-
+</div>
 <script src="front/js/modal.js"></script>
+<script src="front/js/auth.js"></script>
+<script src="front/js/session.js"></script>
+<script src="front/js/script.js"></script>
 
 </body>
 </html>

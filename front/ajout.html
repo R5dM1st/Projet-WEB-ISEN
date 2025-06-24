@@ -1,0 +1,20 @@
+<main class="main-content">
+  <h2>Ajouter un point de position</h2>
+  <form id="ajout-form">
+    <input type="number" id="mmsi" name="mmsi" placeholder="MMSI" required>
+    <input type="datetime-local" id="horodatage" name="horodatage" required>
+    <input type="number" step="any" id="latitude" name="latitude" placeholder="Latitude" required>
+    <input type="number" step="any" id="longitude" name="longitude" placeholder="Longitude" required>
+    <input type="number" step="any" id="draft" name="draft" placeholder="Tirant d’eau (Draft)" required>
+    <input type="number" id="status" name="status" placeholder="État (Status)" required>
+    <input type="number" step="any" id="vitesse" name="vitesse" placeholder="Vitesse (SOG)" required>
+    <input type="number" step="any" id="cap" name="cap" placeholder="Cap réel (CAP)" required>
+    <input type="number" step="any" id="heading" name="heading" placeholder="Cap fond (Heading)" required>
+
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <div id="ajoutResult"></div>
+  <br>
+  <button id="btn-accueil-back">Retour à l'accueil</button>
+</main>

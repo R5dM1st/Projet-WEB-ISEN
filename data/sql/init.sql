@@ -25,8 +25,11 @@ CREATE TABLE Position (
     Date_Heure TIMESTAMP,
     Latitude FLOAT,
     Longitude FLOAT,
+    Draft FLOAT,
     Vitesse FLOAT,
     CAP FLOAT,
+    Heading FLOAT,
+    Status int default 0,
     MMSI INT,
     FOREIGN KEY (MMSI) REFERENCES Bateau(MMSI)
 );
