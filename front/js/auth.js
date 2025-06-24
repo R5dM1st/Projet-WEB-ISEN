@@ -19,12 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
           credentials: 'include', // si la session est nécessaire
           body: JSON.stringify(data)
         });
-
+        console.log(JSON.stringify(data));
         let result;
         try {
           result = await response.json();
+        
         } catch (jsonError) {
-          showMessage('ajoutResult', 'Erreur de réponse du serveur.', false);
+          console.log('Erreur JSON:', jsonError);
+          showMessage('registerResult', 'Erreur de réponse du serveur.', false);
           return;
         }
 

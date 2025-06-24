@@ -1,4 +1,6 @@
 <?php
+
+    
 session_start();
 header('Content-Type: application/json');
 
@@ -19,14 +21,19 @@ if (!isset($data['email'], $data['mot_de_passe'], $data['username'])) {
 }
 
 try {
+    
     $pdo = db_connect();
+
 
     $stmt = $pdo->prepare('SELECT id FROM Utilisateur WHERE email = ?');
     $stmt->execute([$data['email']]);
+    
     if ($stmt->fetch()) {
         echo json_encode(['success' => false, 'message' => 'Cet e-mail est déjà utilisé.']);
         exit;
     }
+
+    
 
     $hash = password_hash($data['mot_de_passe'], PASSWORD_DEFAULT);
 
@@ -42,7 +49,12 @@ try {
     } else {
         echo json_encode(['success' => false, 'message' => "Erreur lors de l'inscription."]);
     }
+        
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Erreur serveur : ' . $e->getMessage()]);
 }
+
+
+
+    
