@@ -39,16 +39,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Gère la déconnexion
   function setupLogout() {
+    const logoutUrl = 'back/api/logout.php';
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
       logoutBtn.onclick = async function() {
-        await fetch('back/api/logout.php', { method: 'POST', credentials: 'include' });
+        console.log(`Déconnexion : fetch URL = ${logoutUrl}`);
+        await fetch(logoutUrl, { method: 'POST', credentials: 'include' });
         checkSession();
       }
     }
   }
 
-  // Gère l'ouverture et la fermeture des modals après MAJ du HTML
+  // Gère l'ouverture et la fermeture des modals
   function setupModalTriggers() {
     const regBtn = document.querySelector('.reg');
     if (regBtn) regBtn.onclick = function(e) {
@@ -76,7 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Vérifie la session utilisateur et adapte l'affichage
   async function checkSession() {
-    const response = await fetch('back/api/me.php', { credentials: 'include' });
+    const meUrl = 'back/api/me.php';
+    console.log(`Vérification session : fetch URL = ${meUrl}`);
+    const response = await fetch(meUrl, { credentials: 'include' });
     const user = await response.json();
     const navAuth = document.querySelector('.nav-auth');
     const navProtected = document.querySelector('.nav-protected');
@@ -108,9 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
         email: this.querySelector('[name="email"]').value,
         mot_de_passe: this.querySelector('[name="mot_de_passe"]').value
       };
+      const registerUrl = 'back/api/register.php';
 
       try {
-        const response = await fetch('back/api/register.php', {
+        console.log(`Inscription : fetch URL = ${registerUrl}`);
+        const response = await fetch(registerUrl, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(data)
@@ -147,9 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
         email: this.querySelector('[name="email"]').value,
         mot_de_passe: this.querySelector('[name="mot_de_passe"]').value
       };
+      const loginUrl = 'back/api/login.php';
 
       try {
-        const response = await fetch('back/api/login.php', {
+        console.log(`Connexion : fetch URL = ${loginUrl}`);
+        const response = await fetch(loginUrl, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(data)
