@@ -61,13 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('modal-login').style.display = 'flex';
     };
 
-    // Gestion fermeture modals (croix ou fond)
     document.querySelectorAll('.modal').forEach(modal => {
-      // Ferme si on clique sur le fond gris
       modal.onclick = function(e) {
         if (e.target === modal) modal.style.display = 'none';
       };
-      // Ferme si on clique sur la croix
       const closeBtn = modal.querySelector('.close');
       if (closeBtn) {
         closeBtn.onclick = function() {
@@ -78,28 +75,28 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Vérifie la session utilisateur et adapte l'affichage
-async function checkSession() {
-  const response = await fetch('back/api/me.php', { credentials: 'include' });
-  const user = await response.json();
-  const navAuth = document.querySelector('.nav-auth');
-  const navProtected = document.querySelector('.nav-protected');
+  async function checkSession() {
+    const response = await fetch('back/api/me.php', { credentials: 'include' });
+    const user = await response.json();
+    const navAuth = document.querySelector('.nav-auth');
+    const navProtected = document.querySelector('.nav-protected');
 
-  if (user.logged_in) {
-    navAuth.innerHTML = `
-      <span>Bienvenue, ${user.username}!</span> 
-      <button id="logoutBtn">Déconnexion</button>
-    `;
-    if (navProtected) navProtected.style.display = 'flex'; // ou 'block' selon le CSS
-    setupLogout();
-  } else {
-    navAuth.innerHTML = `
-      <a href="#" class="reg">Register</a>
-      <a href="#" class="sign">Login</a>
-    `;
-    if (navProtected) navProtected.style.display = 'none';
-    setupModalTriggers();
+    if (user.logged_in) {
+      navAuth.innerHTML = `
+        <span>Bienvenue, ${user.username}!</span> 
+        <button id="logoutBtn">Déconnexion</button>
+      `;
+      if (navProtected) navProtected.style.display = 'flex';
+      setupLogout();
+    } else {
+      navAuth.innerHTML = `
+        <a href="#" class="reg">Register</a>
+        <a href="#" class="sign">Login</a>
+      `;
+      if (navProtected) navProtected.style.display = 'none';
+      setupModalTriggers();
+    }
   }
-}
 
   // ----- REGISTER -----
   const formRegister = document.getElementById('form-register');
@@ -111,19 +108,32 @@ async function checkSession() {
         email: this.querySelector('[name="email"]').value,
         mot_de_passe: this.querySelector('[name="mot_de_passe"]').value
       };
-      const response = await fetch('back/api/register.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
-      const result = await response.json();
-      showMessage('registerResult', result.message, result.success);
-      if(result.success) {
-        // Succès inscription
-        document.getElementById('modal-register').style.display = 'none';
-        // Efface les paramètres et le hash de l'URL sans recharger la page
-        window.history.replaceState({}, document.title, window.location.pathname);  
-        checkSession();
+
+      try {
+        const response = await fetch('back/api/register.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+
+        let result;
+        try {
+          result = await response.json();
+        } catch (jsonError) {
+          showMessage('registerResult', 'Erreur de réponse du serveur.', false);
+          return;
+        }
+
+        showMessage('registerResult', result.message || 'Réponse inconnue.', result.success);
+
+        if (result.success) {
+          document.getElementById('modal-register').style.display = 'none';
+          window.history.replaceState({}, document.title, window.location.pathname);
+          checkSession();
+        }
+
+      } catch (networkError) {
+        showMessage('registerResult', 'Impossible de contacter le serveur.', false);
       }
     };
   }
@@ -137,19 +147,32 @@ async function checkSession() {
         email: this.querySelector('[name="email"]').value,
         mot_de_passe: this.querySelector('[name="mot_de_passe"]').value
       };
-      const response = await fetch('back/api/login.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
-      const result = await response.json();
-      showMessage('loginResult', result.message, result.success);
-      if(result.success) {
-        // Succès connexion
-        document.getElementById('modal-login').style.display = 'none';
-        // Efface les paramètres et le hash de l'URL sans recharger la page
-    window.history.replaceState({}, document.title, window.location.pathname);
-        checkSession();
+
+      try {
+        const response = await fetch('back/api/login.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+
+        let result;
+        try {
+          result = await response.json();
+        } catch (jsonError) {
+          showMessage('loginResult', 'Erreur de réponse du serveur.', false);
+          return;
+        }
+
+        showMessage('loginResult', result.message || 'Réponse inconnue.', result.success);
+
+        if (result.success) {
+          document.getElementById('modal-login').style.display = 'none';
+          window.history.replaceState({}, document.title, window.location.pathname);
+          checkSession();
+        }
+
+      } catch (networkError) {
+        showMessage('loginResult', 'Impossible de contacter le serveur.', false);
       }
     };
   }
