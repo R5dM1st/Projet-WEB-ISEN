@@ -1,17 +1,24 @@
+/* Reset et base */
 body {
   margin: 0;
   padding: 0;
-  background: #DFFDFF; /* Couleur principale de fond */
+  background: #DFFDFF; /* Fond principal */
   font-family: 'Inter', Arial, sans-serif;
   color: #25253c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Navbar */
 .navbar {
-  display: flex;
+  background: #ffffff;
+  padding: 1.5rem 4rem; /* un peu moins que 32px 64px */
+  display: flex !important; /* forcer flex Bootstrap */
   justify-content: space-between;
   align-items: center;
-  padding: 32px 64px 0 64px;
-  background: #ffffff; /* Blanc pour la navbar */
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -23,34 +30,37 @@ body {
 }
 
 .logo img {
-  height: 50px;   /* Taille du logo ajustable */
+  height: 50px;
   width: auto;
   margin-right: 12px;
   display: block;
 }
 
+/* Liens nav */
 .nav-links {
-  display: flex;
-  gap: 70px;
+  display: flex !important;
+  gap: 3rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .nav-links li {
   font-size: 20px;
   font-weight: 400;
-  color: #da76b5; /* Bleu moyen pour les liens inactifs */
+  color: #da76b5; /* couleur inactive */
 }
 
 .nav-links a {
   text-decoration: none;
   color: #568ab4;
   transition: color 0.2s;
+  font-weight: 500;
 }
 
 .nav-links a:hover {
-  color: #68EDC6; /* Vert menthe pour hover */
+  color: #68EDC6; /* vert menthe */
 }
 
 .icon-search {
@@ -58,89 +68,14 @@ body {
   vertical-align: middle;
 }
 
+/* Auth buttons dans la navbar */
 .nav-auth {
-  display: flex;
+  display: flex !important;
   align-items: center;
-  gap: 8px;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.signin {
-  color: #90BEDE;
-  font-size: 20px;
-  margin-right: 12px;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.signin:hover {
-  color: #68EDC6;
-}
-
-.sign-btn {
-  background: #68EDC6;     /* Vert menthe pour le bouton */
-  color: #ffffff;
-  font-size: 20px;
-  padding: 6px 26px;
-  border-radius: 24px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-  border: none;
-}
-
-.sign-btn:hover {
-  background: #90F3FF;     /* Bleu cyan clair pour hover */
-  color: #3c2625;
-}
-
-.main-content {
-  text-align: center;
-  margin-top: 80px;
-}
-
-.title { /*projetwebisen*/
-  font-size: 72px;
-  font-weight: 700;
-  margin-bottom: 50px;
-  letter-spacing: 2px;
-  color: #38415a; /* Bleu moyen pour le titre */
-}
-
-.subtitle {/*sous 'projetwebisen'*/
-  font-size: 26px;
-  color: #000000;
-  max-width: 620px;
-  margin: 0 auto 25px auto;
-  font-weight: 400;
-}
-
-.purchase-btn {
-  display: inline-block;
-  background: #90F3FF;   /* Bleu cyan pour le bouton principal */
-  color: #25253c;
-  padding: 18px 50px;
-  border-radius: 34px;
-  font-size: 26px;
-  font-weight: 500;
-  margin-bottom: 16px;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-  border: none;
-}
-
-.purchase-btn:hover {
-  background: #68EDC6;
-  color: #ffffff;
-}
-
-/* Section d'authentification dans la navbar */
-.nav-auth {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* Bouton Register */
 .nav-auth .reg {
   background-color: transparent;
   color: #90BEDE;
@@ -151,6 +86,7 @@ body {
   border-radius: 24px;
   text-decoration: none;
   transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .nav-auth .reg:hover {
@@ -159,7 +95,6 @@ body {
   border-color: #68EDC6;
 }
 
-/* Bouton Login */
 .nav-auth .sign {
   background-color: #68EDC6;
   color: #ffffff;
@@ -170,10 +105,141 @@ body {
   border-radius: 24px;
   text-decoration: none;
   transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .nav-auth .sign:hover {
   background-color: #90F3FF;
   color: #25253c;
   border-color: #90F3FF;
+}
+
+/* Contenu principal */
+.main-content {
+  text-align: center;
+  margin-top: 5rem;
+  padding: 0 1rem;
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 4.5rem; /* 72px */
+  font-weight: 700;
+  margin-bottom: 3rem;
+  letter-spacing: 2px;
+  color: #38415a;
+}
+
+.subtitle {
+  font-size: 1.625rem; /* 26px */
+  color: #000000;
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  font-weight: 400;
+}
+
+.purchase-btn {
+  display: inline-block;
+  background: #90F3FF;
+  color: #25253c;
+  padding: 18px 50px;
+  border-radius: 34px;
+  font-size: 1.625rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.purchase-btn:hover {
+  background: #68EDC6;
+  color: #ffffff;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 0.5rem;
+  padding: 2rem;
+  max-width: 400px;
+  margin: auto;
+  background: white;
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 0.1);
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #68EDC6;
+  outline: none;
+}
+
+/* Buttons dans les modals */
+button[type="submit"] {
+  background-color: #68EDC6;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #90F3FF;
+  color: #25253c;
+}
+
+/* Close button modals */
+.close {
+  cursor: pointer;
+  font-size: 1.5rem;
+  float: right;
+  color: #25253c;
+  transition: color 0.2s ease;
+}
+
+.close:hover {
+  color: #68EDC6;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 2rem;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .main-content {
+    margin-top: 3rem;
+    padding: 0 1rem;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    max-width: 100%;
+  }
 }

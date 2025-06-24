@@ -57,37 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Ajout
   function renderAjout() {
     chargerHTMLDansAccueil('front/ajout.html', () => {
-      document.getElementById('ajout-form')?.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const data = new FormData(this);
-        fetch('/api/ajout.php', {
-          method: 'POST',
-          body: data
-        })
-        .then(res => res.text())
-        .then(txt => document.getElementById('ajoutResult').innerText = txt)
-        .catch(err => console.error(err));
-      });
-
-      document.getElementById('form-trajectoire')?.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const data = new FormData(this);
-        fetch('/api/predict_trajectory.php', {
-          method: 'POST',
-          body: data
-        })
-        .then(res => res.json())
-        .then(json => {
-          document.getElementById('resultat-trajectoire').innerHTML = `
-            <p><strong>Latitude prédite :</strong> ${json.lat}</p>
-            <p><strong>Longitude prédite :</strong> ${json.lon}</p>
-          `;
-        })
-        .catch(err => {
-          console.error(err);
-          document.getElementById('resultat-trajectoire').innerText = "Erreur de prédiction.";
-        });
-      });
+      // Charger le script ajout.js dynamiquement
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = 'front/js/ajout.js';
+      document.body.appendChild(script);
 
       document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
     });

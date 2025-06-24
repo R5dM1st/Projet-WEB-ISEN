@@ -1,22 +1,15 @@
+-- Suppression des tables existantes
 DROP TABLE IF EXISTS Position CASCADE;
 DROP TABLE IF EXISTS Bateau CASCADE;
-DROP TABLE IF EXISTS TYPE_Bateau CASCADE;
 DROP TABLE IF EXISTS Utilisateur CASCADE;
 
--- Table TYPE_Bateau
-CREATE TABLE TYPE_Bateau (
-    Vessel_type INT PRIMARY KEY,
-    Labelle VARCHAR(50)
-);
-
--- Table Bateau
+-- Table Bateau (sans référence à TYPE_Bateau)
 CREATE TABLE Bateau (
     MMSI INT PRIMARY KEY,
     Nom VARCHAR(50),
     Longueur FLOAT,
     Largeur FLOAT,
-    Vessel_type INT,
-    FOREIGN KEY (Vessel_type) REFERENCES TYPE_Bateau(Vessel_type)
+    Vessel_type INT -- laissé ici comme simple champ informatif
 );
 
 -- Table Position
@@ -29,7 +22,7 @@ CREATE TABLE Position (
     Vitesse FLOAT,
     CAP FLOAT,
     Heading FLOAT,
-    Status int default 0,
+    Status INT DEFAULT 0,
     MMSI INT,
     FOREIGN KEY (MMSI) REFERENCES Bateau(MMSI)
 );

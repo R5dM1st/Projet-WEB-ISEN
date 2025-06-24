@@ -1,42 +1,45 @@
 <?php
+session_start();
 header('Content-Type: application/json');
-require_once '../config/db.php';
 
-$data = json_decode(file_get_contents('php://input'), true);
+// Vérification de session utilisateur (enlève si tu n'as pas de gestion de session)
+//if (!isset($_SESSION['user_id'])) {
+    //echo json_encode(['success' => false, 'message' => 'Vous devez être connecté.']);
+    //exit;
+//}
 
-// Vérifie les champs nécessaires
-$required = ['mmsi', 'horodatage', 'latitude', 'longitude', 'draft', 'status', 'vitesse', 'cap', 'heading'];
-foreach ($required as $field) {
-    if (!isset($data[$field])) {
-        echo json_encode(['success' => false, 'message' => "Champ manquant : $field"]);
+$input = json_decode(file_get_contents('php://input'), true);
+
+$required = ['mmsi', 'date_heure', 'latitude', 'longitude', 'draft', 'status', 'vitesse', 'cap', 'heading'];
+foreach ($required as $key) {
+    if (!isset($input[$key]) || $input[$key] === '') {
+        echo json_encode(['success' => false, 'message' => "Champ manquant : $key"]);
         exit;
     }
 }
 
-try {
-    $pdo = db_connect();
+require_once '../config/db.php';
+$pdo = db_connect();
 
+try {
     $stmt = $pdo->prepare("
-        INSERT INTO Position (
-            Date_Heure, Latitude, Longitude, Draft, Status,
-            Vitesse, CAP, Heading, MMSI
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO Position (MMSI, Date_Heure, Latitude, Longitude, Draft, Status, Vitesse, CAP, Heading)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
-        $data['horodatage'],
-        $data['latitude'],
-        $data['longitude'],
-        $data['draft'],
-        $data['status'],
-        $data['vitesse'],
-        $data['cap'],
-        $data['heading'],
-        $data['mmsi']
+        $input['mmsi'],
+        $input['date_heure'],
+        $input['latitude'],
+        $input['longitude'],
+        $input['draft'],
+        $input['status'],
+        $input['vitesse'],
+        $input['cap'],
+        $input['heading']
     ]);
 
-    echo json_encode(['success' => true, 'message' => 'Point de position ajouté avec succès.']);
+    echo json_encode(['success' => true, 'message' => 'Position enregistrée avec succès.']);
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Erreur BDD : ' . $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Erreur SQL : ' . $e->getMessage()]);
 }
-?>
