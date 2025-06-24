@@ -1,6 +1,13 @@
 <?php
 session_start();
 header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée']);
+    exit;
+}
+
 require_once '../config/db.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -17,7 +24,6 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($data['mot_de_passe'], $user['mot_de_passe'])) {
-        // On stocke l'utilisateur en session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $data['email'];
@@ -26,6 +32,6 @@ try {
         echo json_encode(['success' => false, 'message' => 'Identifiants incorrects.']);
     }
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Erreur serveur : ' . $e->getMessage()]);
 }
-?>

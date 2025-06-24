@@ -1,6 +1,13 @@
 <?php
 session_start();
 header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée']);
+    exit;
+}
+
 require_once '../config/db.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -13,7 +20,6 @@ if (!isset($data['email'], $data['mot_de_passe'], $data['username'])) {
 try {
     $pdo = db_connect();
 
-    // Vérifie si l'email existe déjà
     $stmt = $pdo->prepare('SELECT id FROM Utilisateur WHERE email = ?');
     $stmt->execute([$data['email']]);
     if ($stmt->fetch()) {
@@ -21,19 +27,12 @@ try {
         exit;
     }
 
-    // Hash du mot de passe
     $hash = password_hash($data['mot_de_passe'], PASSWORD_DEFAULT);
 
-    // Insertion dans la table Utilisateur
     $stmt = $pdo->prepare('INSERT INTO Utilisateur (username, email, mot_de_passe) VALUES (?, ?, ?)');
-    $success = $stmt->execute([
-        $data['username'],
-        $data['email'],
-        $hash
-    ]);
+    $success = $stmt->execute([$data['username'], $data['email'], $hash]);
 
     if ($success) {
-        // Récupère l'utilisateur nouvellement créé
         $user_id = $pdo->lastInsertId();
         $_SESSION['user_id'] = $user_id;
         $_SESSION['username'] = $data['username'];
@@ -43,6 +42,6 @@ try {
         echo json_encode(['success' => false, 'message' => "Erreur lors de l'inscription."]);
     }
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Erreur : ' . $e->getMessage()]);
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Erreur serveur : ' . $e->getMessage()]);
 }
-?>
