@@ -21,11 +21,19 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderAccueil() {
     accueilDiv.innerHTML = `
       <main class="main-content" id="main-accueil">
-        <h1 class="title">PROJET WEB ISEN</h1>
-        <p class="subtitle">Affichez un navire avec son cluster d'appartenance !</p>
+        <h1 class="title">Bienvenue sur le Projet WEB ISEN !</h1>
+        <h2 class="subtitle">Une base de données contenant des navires existe ici. <br><br> 
+        Vous pouvez exploiter différentes fonctionnalités pour vous amuser avec :</h2>
+        - Ajouter des navires <br>
+        - Visualiser les effectifs sur une carte <br><br>
+        <h2 class="subtitle">Dans l'onglet visualisation :</h2>
+        - Prédire le cluster d'un navire <br>
+        - Prédire son type et sa trajectoire <br><br>
+        <img src="front/assets/img/cartoon-cargo.png" alt="Cargo" /> <br><br>
+        <p class="subtitle2">Affichez un navire avec son cluster d'appartenance !</p>
         <button id="btn-prediction-cluster" class="purchase-btn">Prediction Cluster</button>
         <br><br><br><br>
-        <p class="subtitle">Prédisez le type et la trajectoire d'un navire !</p>
+        <p class="subtitle2">Prédisez le type et la trajectoire d'un navire !</p>
         <button id="btn-prediction-type" class="purchase-btn">Prediction Type</button>
       </main>
     `;
