@@ -49,18 +49,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Visualisation
   function renderVisualisation() {
-    chargerHTMLDansAccueil('front/visualisation.html', () => {
-      document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
-    });
-  }
+  chargerHTMLDansAccueil('front/visualisation.html', () => {
+    // Supprimer l'ancien script s'il existe
+    const ancienScript = document.getElementById('visualisation-script');
+    if (ancienScript) {
+      ancienScript.remove();
+    }
+
+    // Créer un nouveau script
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = 'front/js/visualisation.js';
+    script.id = 'visualisation-script';
+
+    // Une fois le script chargé, exécuter la fonction d'affichage
+    script.onload = () => {
+      if (typeof window.fetchAndDisplayPositions === 'function') {
+        window.fetchAndDisplayPositions(); // appel manuel après le chargement
+      } else {
+        console.warn("fetchAndDisplayPositions non définie");
+      }
+    };
+
+    document.body.appendChild(script);
+
+    document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
+  });
+}
+
 
   // Ajout
   function renderAjout() {
     chargerHTMLDansAccueil('front/ajout.html', () => {
       // Charger le script ajout.js dynamiquement
+      const ancienScript = document.getElementById('ajout-script');
+      if (ancienScript) {
+        ancienScript.remove();
+      }
       const script = document.createElement('script');
       script.type = 'module';
       script.src = 'front/js/ajout.js';
+      script.id = 'ajout-script';
       document.body.appendChild(script);
 
       document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
