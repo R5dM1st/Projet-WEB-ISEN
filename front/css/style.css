@@ -2,7 +2,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #DFFDFF; /* Fond principal */
+  background: #ffdfed; /* Fond principal */
   font-family: 'Inter', Arial, sans-serif;
   color: #25253c;
   min-height: 100vh;
@@ -132,7 +132,15 @@ body {
 
 .subtitle {
   font-size: 1.625rem; /* 26px */
-  color: #000000;
+  color: #38415a;
+  max-width: 850px;
+  margin: 0 auto 2rem;
+  font-weight: 400;
+}
+
+.subtitle2 {
+  font-size: 1.625rem; /* 26px */
+  color: #38415a;
   max-width: 620px;
   margin: 0 auto 1.5rem;
   font-weight: 400;
