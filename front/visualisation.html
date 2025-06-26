@@ -1,14 +1,54 @@
-<!-- fait une page de visualisation -->
- <main id="visualisation" class="flex-grow-1 d-flex flex-column justify-content-center align-items-center bg-light p-4">
-  <div id="filters">
-    <input type="text" id="dateRange" placeholder="Filtrer par plage de dates" class="form-control" style="padding:8px; width: 250px;" />
+<main id="visualisation" class="flex-grow-1 d-flex flex-column bg-light p-4 position-relative" style="min-height: 100vh;">
+
+  <!-- ✅ Bouton Retour dans le coin haut-gauche -->
+  <button id="btn-accueil-back" class="btn btn-secondary" style="position: absolute; top: 15px; left: 15px; z-index: 1000;">
+    ← Retour
+  </button>
+
+  <h1 class="text-center mt-5">Visualisation des positions</h1>
+
+  <div class="d-flex flex-wrap justify-content-center gap-2 my-3">
+    <input type="text" id="nomBateau" class="form-control" placeholder="Nom du bateau" style="max-width: 200px;">
+    <input type="date" id="dateStart" class="form-control">
+    <input type="date" id="dateEnd" class="form-control">
+    <button id="filterBtn" class="btn btn-primary">Filtrer</button>
+    <button id="resetBtn" class="btn btn-outline-secondary">Reset</button>
   </div>
-<div id="table-container"></div>
-<div id="pagination" class="d-flex justify-content-center mt-3"></div>
-<div id="map" style="height: 500px;"></div>
 
+  <div class="table-responsive w-100">
+    <table id="table-bateaux" class="table table-striped table-bordered w-100">
+      <thead class="table-dark">
+        <tr>
+          <th>MMSI</th>
+          <th>Nom</th>
+          <th>Date/Heure</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>SOG</th>
+          <th>COG</th>
+          <th>Cap</th>
+          <th>Status</th>
+          <th>Longueur</th>
+          <th>Largeur</th>
+          <th>Draft</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
 
+  <!-- Modale de prédiction -->
+  <div id="predictionModal" style="display:none; position:fixed; z-index:1000; left:50%; top:50%; transform:translate(-50%, -50%);
+    background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.5); min-width:300px;">
+    <h3>Prédiction pour le bateau sélectionné</h3>
+    <p id="modal-mmsi"></p>
+    <div style="margin: 10px 0;">
+      <button id="btn-predict-type">🔍 Prédire Type</button>
+      <button id="btn-predict-trajectory">🧭 Prédire Trajectoire</button>
+    </div>
+    <pre id="prediction-result" style="background:#f9f9f9; padding:10px; border-radius:5px;"></pre>
+    <button class="btn btn-outline-dark" onclick="closePredictionModal()">Fermer</button>
+  </div>
 
-<button id="btn-accueil-back" class="btn btn-secondary mt-3">Retour</button>
+  <div id="modalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:999;"></div>
 
- </main>
+</main>

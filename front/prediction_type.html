@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prédiction du type et trajectoire d'un bateau</title>
+
+</head>
+<body>
+  <h1>Prédiction du type ou trajectoire d'un bateau</h1>
+
+  <fieldset>
+    <legend>Sélectionnez un bateau</legend>
+    <div id="list-bateaux">Chargement des bateaux...</div>
+  </fieldset>
+
+  <button id="btn-type" disabled>Prédire le type</button>
+  <button id="btn-trajectory" disabled>Prédire la trajectoire</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function loadBateaux() {
+      const container = document.getElementById('list-bateaux');
+      try {
+        const res = await fetch('../back/api/get_bateaux.php');
+        const json = await res.json();
+
+        if (!json.success) throw new Error(json.message || 'Erreur inconnue');
+
+        if (json.data.length === 0) {
+          container.textContent = 'Aucun bateau disponible.';
+          return;
+        }
+
+        // Création d'une liste déroulante
+        const select = document.createElement('select');
+        select.name = 'bateau';
+        select.id = 'select-bateau';
+
+        json.data.forEach((bateau) => {
+          const option = document.createElement('option');
+          option.value = bateau.mmsi;
+          option.textContent = `${bateau.nom} (MMSI: ${bateau.mmsi})`;
+          select.appendChild(option);
+        });
+
+        container.innerHTML = '';
+        container.appendChild(select);
+
+        document.getElementById('btn-type').disabled = false;
+        document.getElementById('btn-trajectory').disabled = false;
+
+      } catch (err) {
+        container.textContent = 'Erreur chargement bateaux: ' + err.message;
+      }
+    }
+
+    async function predict(action) {
+      const select = document.getElementById('select-bateau');
+      if (!select || !select.value) {
+        alert('Veuillez sélectionner un bateau.');
+        return;
+      }
+
+      const mmsi = select.value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Chargement...';
+
+      try {
+        const res = await fetch('../back/api/prediction_type.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ mmsi, action })
+        });
+
+        const json = await res.json();
+        if (json.success) {
+          resultDiv.textContent = `Prédiction (${action}):\n${json.prediction}`;
+          console.log(json.prediction); // Pour débogage
+        } else {
+          resultDiv.textContent = 'Erreur : ' + json.message;
+        }
+      } catch (err) {
+        resultDiv.textContent = 'Erreur réseau ou serveur: ' + err.message;
+      }
+    }
+
+    document.getElementById('btn-type').addEventListener('click', () => predict('type'));
+    document.getElementById('btn-trajectory').addEventListener('click', () => predict('trajectory'));
+
+    loadBateaux();
+  </script>
+</body>
+</html>

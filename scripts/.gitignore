@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Environnement virtuel
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+
+# Fichiers de configuration d’environnement
+.env
+.env.*

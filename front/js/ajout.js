@@ -2,6 +2,7 @@ const selectMmsi = document.getElementById('mmsi');
 const ajoutForm = document.getElementById('ajout-form');
 const ajoutResult = document.getElementById('ajoutResult');
 const submitBtn = ajoutForm.querySelector('button[type="submit"]');
+
 document.getElementById("ajout-form").addEventListener("submit", function (e) {
   const lat = parseFloat(document.getElementById("latitude").value);
   const lon = parseFloat(document.getElementById("longitude").value);
@@ -25,6 +26,7 @@ document.getElementById("ajout-form").addEventListener("submit", function (e) {
     resultDiv.innerHTML = `<div class="alert alert-danger">${erreurs.join("<br>")}</div>`;
   }
 });
+
 if (!selectMmsi || !ajoutForm || !ajoutResult || !submitBtn) {
   console.error('Un élément du DOM est introuvable');
   throw new Error('Éléments DOM manquants');
@@ -33,7 +35,6 @@ if (!selectMmsi || !ajoutForm || !ajoutResult || !submitBtn) {
 let timerMessage = null;
 
 function afficherMessage(message, type = 'info', duree = 5000) {
-  // Nettoie timer précédent
   if (timerMessage) {
     clearTimeout(timerMessage);
     timerMessage = null;
@@ -100,7 +101,20 @@ async function loadBateaux() {
   }
 }
 
-loadBateaux();
+window.addEventListener("pageshow", function(event) {
+  if (event.persisted) {
+    window.location.reload();
+  } else {
+    loadBateaux();
+  }
+});
+
+// Appel initial au chargement de la page normale
+if (document.readyState === "complete" || document.readyState === "interactive") {
+  loadBateaux();
+} else {
+  window.addEventListener("DOMContentLoaded", loadBateaux);
+}
 
 ajoutForm.addEventListener('submit', async (e) => {
   e.preventDefault();

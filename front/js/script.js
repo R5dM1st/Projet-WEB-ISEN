@@ -1,9 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const accueilDiv = document.getElementById('accueil');
-
   if (!accueilDiv) return;
 
-  // Fonction pour injecter un fichier HTML dans #accueil
   function chargerHTMLDansAccueil(fichier, callback) {
     fetch(fichier)
       .then(res => res.text())
@@ -17,7 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  // Page d'accueil
+  // ----------------------------
+  // Pages
+  // ----------------------------
+function nextTick() {
+  return new Promise(resolve => requestAnimationFrame(resolve));
+}
   function renderAccueil() {
     accueilDiv.innerHTML = `
       <main class="main-content" id="main-accueil">
@@ -29,77 +32,96 @@ document.addEventListener('DOMContentLoaded', function () {
         <button id="btn-prediction-type" class="purchase-btn">Prediction Type</button>
       </main>
     `;
-    document.getElementById('btn-prediction-cluster').onclick = renderCluster;
-    document.getElementById('btn-prediction-type').onclick = renderType;
+    document.getElementById('btn-prediction-cluster')?.addEventListener('click', renderCluster);
+    document.getElementById('btn-prediction-type')?.addEventListener('click', renderType);
   }
 
-  // Prediction Cluster
   function renderCluster() {
-    chargerHTMLDansAccueil('front/prediction_cluster.html', () => {
+    chargerHTMLDansAccueil('front/prediction_cluster.html', async () => {
       document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
-    });
-  }
-
-  // Prediction Type
-  function renderType() {
-    chargerHTMLDansAccueil('front/prediction_type.html', () => {
-      document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
-    });
-  }
-
-  // Visualisation
-  function renderVisualisation() {
-  chargerHTMLDansAccueil('front/visualisation.html', () => {
-    // Supprimer l'ancien script s'il existe
-    const ancienScript = document.getElementById('visualisation-script');
-    if (ancienScript) {
-      ancienScript.remove();
-    }
-
-    // Créer un nouveau script
-    const script = document.createElement('script');
-    script.type = 'module';
-    script.src = 'front/js/visualisation.js';
-    script.id = 'visualisation-script';
-
-    // Une fois le script chargé, exécuter la fonction d'affichage
-    script.onload = () => {
-      if (typeof window.fetchAndDisplayPositions === 'function') {
-        window.fetchAndDisplayPositions(); // appel manuel après le chargement
-      } else {
-        console.warn("fetchAndDisplayPositions non définie");
+      try {
+        const module = await import('./cluster.js');
+        if (typeof module.initCluster === 'function') {
+          module.initCluster();
+        } else {
+          console.warn('initCluster() manquant dans cluster.js');
+        }
+      } catch (err) {
+        console.error('Erreur import cluster.js:', err);
       }
-    };
+    });
+  }
 
-    document.body.appendChild(script);
+  function renderType() {
+  // Ajout d'un timestamp pour éviter le cache navigateur
+  const fichier = `front/prediction_type.html?_=${Date.now()}`;
 
-    document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
-  });
+  fetch(fichier)
+    .then(res => res.text())
+    .then(async (html) => {
+      accueilDiv.innerHTML = html;
+
+      // Attente que DOM soit inséré dans la page avant d'agir
+      await nextTick();
+
+      document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
+
+      try {
+        const module = await import('./type.js');
+        if (typeof module.initPrediction === 'function') {
+          module.initPrediction();
+        } else {
+          console.warn('initPrediction() manquant dans type.js');
+        }
+      } catch (err) {
+        console.error('Erreur import type.js:', err);
+      }
+    })
+    .catch(err => {
+      console.error("Erreur de chargement :", err);
+      accueilDiv.innerHTML = "<p>Erreur lors du chargement de la page.</p>";
+    });
 }
 
+  function renderVisualisation() {
+    chargerHTMLDansAccueil('front/visualisation.html', () => {
+      const oldScript = document.getElementById('visualisation-script');
+      if (oldScript) oldScript.remove();
 
-  // Ajout
+      const script = document.createElement('script');
+      script.src = 'front/js/visualisation.js';
+      script.id = 'visualisation-script';
+      script.onload = () => {
+        if (typeof window.initDataTable === 'function') {
+          window.initDataTable();
+        }
+        document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
+      };
+      document.body.appendChild(script);
+    });
+  }
+
   function renderAjout() {
     chargerHTMLDansAccueil('front/ajout.html', () => {
-      // Charger le script ajout.js dynamiquement
-      const ancienScript = document.getElementById('ajout-script');
-      if (ancienScript) {
-        ancienScript.remove();
-      }
+      const oldScript = document.getElementById('ajout-script');
+      if (oldScript) oldScript.remove();
+
       const script = document.createElement('script');
       script.type = 'module';
       script.src = 'front/js/ajout.js';
       script.id = 'ajout-script';
+      script.onload = () => {
+        document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
+      };
       document.body.appendChild(script);
-
-      document.getElementById('btn-accueil-back')?.addEventListener('click', renderAccueil);
     });
   }
 
+  // ----------------------------
   // Initialisation
+  // ----------------------------
   renderAccueil();
 
-  // Navigation
   document.getElementById('nav-ajout')?.addEventListener('click', (e) => {
     e.preventDefault();
     renderAjout();
