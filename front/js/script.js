@@ -33,11 +33,6 @@ function nextTick() {
         - Prédire le cluster d'un navire <br>
         - Prédire son type et sa trajectoire <br><br>
         <img src="front/assets/img/cartoon-cargo.png" alt="Cargo" /> <br><br>
-        <p class="subtitle2">Affichez un navire avec son cluster d'appartenance !</p>
-        <button id="btn-prediction-cluster" class="purchase-btn">Prediction Cluster</button>
-        <br><br><br><br>
-        <p class="subtitle2">Prédisez le type et la trajectoire d'un navire !</p>
-        <button id="btn-prediction-type" class="purchase-btn">Prediction Type</button>
       </main>
     `;
     document.getElementById('btn-prediction-cluster')?.addEventListener('click', renderCluster);
